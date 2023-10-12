@@ -1,0 +1,67 @@
+creating table:-
+
+ create table gym_members(
+  2  id number(5) primary key,
+  3  name varchar2(20) not null,
+  4  age number(3) not null check(age>0),
+  5  joining_date DATE not null,
+  6  expiration_date DATE not null,
+  7  cost number(30) not null,
+  8  city varchar2(30) default 'mumbai' not null,
+  9  height number(20) not null check(height>0),
+ 10  weight number(30) not null check(weight>0),
+ 11  created_at Date default sysdate);
+
+for creating sequence:-
+
+create sequence gym_seq
+  2  start with 1
+  3  increment by 1;
+
+for inserting rows:-
+
+insert into gym_members(id,name,age,joining_date,expiration_date,cost,city,height,weight) 
+values(gym_seq.nextval,'pranali',22,'07-aug-2023','07-aug-2025',20000,'buldhana',165,52);
+
+insert into gym_members(id,name,age,joining_date,expiration_date,cost,city,height,weight) 
+values(gym_seq.nextval,'poonam',23,'07-jul-2023','07-aug-2023',19000,'nagpur',163,60);
+
+insert into gym_members(id,name,age,joining_date,expiration_date,cost,city,height,weight)
+values(gym_seq.nextval,'tulsi',24,'14-sep-2023','14-sep-2026',40000,'pune',160,55);
+
+insert into gym_members(id,name,age,joining_date,expiration_date,cost,city,height,weight)
+values(gym_seq.nextval,'sidhhi',21,'14-jan-2022','14-jan-2023',15000,'mumbai',150,45);
+
+insert into gym_members(id,name,age,joining_date,expiration_date,cost,city,height,weight) 
+values(gym_seq.nextval,'nikita',25,'14-sep-2022','14-aug-2026',30000,'pune',168,44);
+
+insert into gym_members(id,name,age,joining_date,expiration_date,cost,city,height,weight) 
+values(gym_seq.nextval,'ambika',21,'14-sep-2022','14-aug-2025',25000,'latur',155,46);
+
+to perform queries on table:-
+
+select * from gym_members;
+select * from gym_members where cost>20000;
+select * from gym_members where city= 'pune';
+select * from gym_members where city='mumbai' and age>20;
+select * from gym_members where months_between(sysdate,joining_date)<=3;
+select * from gym_members where months_between(expiration_date,joining_date)=3;
+select * from gym_members where months_between(expiration_date,joining_date)<=3;
+
+to calculate the BMI:-
+
+select name,(weight/(height*height)) as BMI from gym_members;
+
+to arrange all the rows in descending order:-
+
+select * from gym_members order by height desc;
+
+To get birth year from age:-
+
+select name,age,(Extract(year from sysdate)-age) as birth_year from gym_members;
+select name,age,(Extract(year from sysdate)-age) as birth_year from gym_members where city='mumbai';
+
+
+
+
+
